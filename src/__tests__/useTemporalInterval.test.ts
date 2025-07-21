@@ -1,6 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { useTemporalInterval } from '../hooks/useTemporalInterval';
-import { Temporal } from '@js-temporal/polyfill';
 
 describe('useTemporalInterval', () => {
   it('runs callback at interval', () => {
