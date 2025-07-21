@@ -6,6 +6,6 @@ import { Temporal } from '@js-temporal/polyfill';
  */
 export function useTemporalDuration(start: Temporal.Instant, end: Temporal.Instant) {
   return useMemo(() => Temporal.Duration.from({
-    seconds: end.epochSeconds - start.epochSeconds
+    seconds: Number(end.epochNanoseconds - start.epochNanoseconds) / 1_000_000_000
   }), [start, end]);
 }

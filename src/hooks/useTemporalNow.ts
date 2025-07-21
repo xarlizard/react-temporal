@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Temporal } from '@js-temporal/polyfill';
 
 /**
  * Returns the current Temporal.Instant, updating every second.

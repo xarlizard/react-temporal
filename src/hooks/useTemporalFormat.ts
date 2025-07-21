@@ -6,7 +6,11 @@ import { Temporal } from '@js-temporal/polyfill';
  */
 export function useTemporalFormat(temporalObj: Temporal.PlainDateTime | Temporal.Instant, options?: Intl.DateTimeFormatOptions) {
   return useMemo(() => {
-    const date = temporalObj instanceof Temporal.Instant ? temporalObj.toZonedDateTimeISO('UTC') : temporalObj;
-    return new Intl.DateTimeFormat(undefined, options).format(date);
+    const zonedDateTime =
+      temporalObj instanceof Temporal.Instant
+        ? temporalObj.toZonedDateTimeISO('UTC')
+        : temporalObj;
+    const jsDate = new Date(zonedDateTime.toString());
+    return new Intl.DateTimeFormat(undefined, options).format(jsDate);
   }, [temporalObj, options]);
 }
