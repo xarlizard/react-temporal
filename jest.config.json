@@ -1,6 +1,6 @@
 {
   "preset": "ts-jest/presets/default-esm",
-  "testEnvironment": "node",
+  "testEnvironment": "jsdom",
   "extensionsToTreatAsEsm": [".ts"],
   "transform": {
     "^.+\\.ts$": ["ts-jest", {
@@ -15,7 +15,6 @@
   ],
   "coverageDirectory": "coverage",
   "coverageReporters": ["text", "lcov", "html"],
-  "setupFilesAfterEnv": ["<rootDir>/src/__tests__/setup.ts"],
   "forceExit": true,
   "detectOpenHandles": true
 }
