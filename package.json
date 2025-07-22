@@ -78,7 +78,7 @@
     "node": ">=14.0.0"
   },
   "devDependencies": {
-    "@jest/globals": "^30.0.4",
+    "@jest/globals": "^30.0.5",
     "@rollup/plugin-typescript": "^12.1.4",
     "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^30.0.0",
