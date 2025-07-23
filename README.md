@@ -1,4 +1,4 @@
-# react-temporal 📦
+# react-temporal 
 
 [![npm version](https://badge.fury.io/js/@xarlizard%2Freact-temporal.svg)](https://badge.fury.io/js/@xarlizard%2Freact-temporal)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

@@ -1,6 +1,6 @@
 {
   "name": "react-temporal",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A comprehensive React hooks library for date and time management using the JavaScript Temporal API. Provides custom hooks for all common date, time, calendar, and timezone needs in React projects.",
   "type": "module",
   "main": "dist/index.cjs",
