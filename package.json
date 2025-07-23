@@ -95,12 +95,12 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
-    "react": "17.0.0",
-    "react-dom": "17.0.0"
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   },
   "dependencies": {
     "@js-temporal/polyfill": "^0.5.1",
-    "react": "17.0.0",
-    "react-dom": "17.0.0"
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   }
 }
