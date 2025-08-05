@@ -4,6 +4,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![CI/CD](https://github.com/xarlizard/react-temporal/actions/workflows/publish.yml/badge.svg)](https://github.com/xarlizard/react-temporal/actions/workflows/publish.yml)
+[![Production Deployment](https://github.com/xarlizard/react-temporal/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/xarlizard/react-temporal/actions/workflows/deploy.yml)
+
 
 **react-temporal** is a comprehensive React hooks library for date and time management, powered by the new JavaScript
 [Temporal API](https://tc39.es/proposal-temporal/). It aims to be the only required library for handling dates, times,
