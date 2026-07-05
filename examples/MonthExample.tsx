@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTemporalMonth } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalMonth, Temporal } from 'react-temporal';
 
 export function MonthExample() {
   const dates = useTemporalMonth(Temporal.PlainDate.from('2025-07-01'));

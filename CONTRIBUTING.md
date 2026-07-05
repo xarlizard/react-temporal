@@ -70,7 +70,7 @@ Documentation improvements are always welcome:
 
 ### Prerequisites
 
-- Node.js 16+ (18+ recommended)
+- Node.js 22+
 - npm 8+
 - Git
 - PowerShell (for Windows-specific scripts)

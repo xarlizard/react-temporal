@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useTemporalSchedule } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalSchedule, Temporal } from 'react-temporal';
 
 export function ScheduleExample() {
   const [triggered, setTriggered] = useState(false);

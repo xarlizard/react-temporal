@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTemporalYear } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalYear, Temporal } from 'react-temporal';
 
 export function YearExample() {
   const date = Temporal.PlainDate.from('2025-07-21');

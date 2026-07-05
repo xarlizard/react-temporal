@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTemporalWeek } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalWeek, Temporal } from 'react-temporal';
 
 export function WeekExample() {
   const date = Temporal.PlainDate.from('2025-07-21');

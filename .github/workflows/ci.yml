@@ -9,18 +9,15 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18, 20]
-        
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js 22
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: "22"
           cache: 'npm'
 
       - name: Install dependencies
@@ -40,17 +37,14 @@ jobs:
 
       - name: Test package installation (CommonJS)
         run: |
-          # Test installation in a temporary directory
           cd $(mktemp -d)
           npm init -y
-          # Set up CommonJS environment
           echo '{"type": "commonjs"}' > package.json
           npm install $GITHUB_WORKSPACE
-          
-          # Get the repository name dynamically
+
           REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
           echo "📦 Testing CommonJS import for package: $REPO_NAME"
-          
+
           node -e "
             const repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
             try {
@@ -65,16 +59,14 @@ jobs:
 
       - name: Test package installation (ES Module)
         run: |
-          # Test ES module import in a temporary directory
           cd $(mktemp -d)
           npm init -y
           echo '{"type": "module"}' > package.json
           npm install $GITHUB_WORKSPACE
-          
-          # Get the repository name dynamically
+
           REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
           echo "📦 Testing ES Module import for package: $REPO_NAME"
-          
+
           node -e "
             const repoName = process.env.GITHUB_REPOSITORY.split('/')[1];
             import(repoName).then(pkg => {
@@ -87,7 +79,6 @@ jobs:
           "
 
       - name: Upload coverage to Codecov
-        if: matrix.node-version == 18
         uses: codecov/codecov-action@v7
         with:
           file: ./coverage/lcov.info

@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTemporalDuration } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalDuration, Temporal } from 'react-temporal';
 
 export function DurationExample() {
   const start = Temporal.Instant.from('2025-07-21T00:00:00Z');
