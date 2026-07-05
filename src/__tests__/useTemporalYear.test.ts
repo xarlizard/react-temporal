@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useTemporalYear } from '../hooks/useTemporalYear';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '../temporal';
 
 describe('useTemporalYear', () => {
     it('returns all months in the year', () => {

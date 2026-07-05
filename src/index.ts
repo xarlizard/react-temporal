@@ -1,4 +1,10 @@
+export { getTemporal, Temporal } from './temporal';
+export type { TemporalNamespace } from './temporal';
+export * from './types';
+
 export * from './hooks/useTemporalNow';
+export * from './hooks/useTemporalClock';
+export * from './hooks/useTemporalZonedNow';
 export * from './hooks/useTemporalInterval';
 export * from './hooks/useTemporalDuration';
 export * from './hooks/useTemporalCalendar';

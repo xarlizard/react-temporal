@@ -7,6 +7,7 @@ export default {
       file: 'dist/index.cjs',
       format: 'cjs',
       sourcemap: true,
+      exports: 'named',
     },
     {
       file: 'dist/index.esm.js',
@@ -14,7 +15,12 @@ export default {
       sourcemap: true,
     },
   ],
-  external: [],
+  external: [
+    'react',
+    'react-dom',
+    '@js-temporal/polyfill',
+    'temporal-polyfill',
+  ],
   plugins: [
     typescript({
       tsconfig: './tsconfig.json',

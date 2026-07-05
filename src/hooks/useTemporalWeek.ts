@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
-import { Temporal } from '@js-temporal/polyfill';
+import type { TemporalPlainDate } from '../types';
 
 /**
- * Returns all dates in the week of a given Temporal.PlainDate.
+ * Returns all dates in the ISO week (Monday–Sunday) containing the given PlainDate.
  */
-export function useTemporalWeek(date: Temporal.PlainDate) {
+export function useTemporalWeek(date: TemporalPlainDate) {
     return useMemo(() => {
         const weekDay = date.dayOfWeek;
         const start = date.subtract({ days: weekDay - 1 });

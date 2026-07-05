@@ -1,11 +1,9 @@
 import { useMemo } from 'react';
-import { Temporal } from '@js-temporal/polyfill';
+import type { TemporalInstant } from '../types';
 
 /**
- * Returns a Temporal.Duration from start and end Temporal.Instant.
+ * Returns a Temporal.Duration between two instants.
  */
-export function useTemporalDuration(start: Temporal.Instant, end: Temporal.Instant) {
-    return useMemo(() => Temporal.Duration.from({
-        seconds: Number(end.epochNanoseconds - start.epochNanoseconds) / 1_000_000_000
-    }), [start, end]);
+export function useTemporalDuration(start: TemporalInstant, end: TemporalInstant) {
+    return useMemo(() => start.until(end), [start, end]);
 }
