@@ -55,9 +55,9 @@ body:
       description: Please provide your environment details
       placeholder: |
         - OS: [e.g. Windows 11, macOS 12.3, Ubuntu 20.04]
-        - Node.js version: [e.g. 18.15.0]
+        - Node.js version: [e.g. 22.x]
         - npm version: [e.g. 9.5.0]
-        - Package version: [e.g. 1.0.0]
+        - Package version: [e.g. 0.0.3]
     validations:
       required: true
 

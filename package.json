@@ -1,20 +1,22 @@
 {
   "name": "react-temporal",
-  "version": "0.0.2",
-  "description": "A comprehensive React hooks library for date and time management using the JavaScript Temporal API. Provides custom hooks for all common date, time, calendar, and timezone needs in React projects.",
+  "version": "0.0.3",
+  "description": "React hooks for date and time using the JavaScript Temporal API — native in modern browsers, polyfill-ready for Node.js and Safari.",
   "type": "module",
+  "sideEffects": false,
   "main": "dist/index.cjs",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.esm.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   },
   "files": [
     "dist",
+    "docs",
     "README.md",
     "LICENSE",
     "CHANGELOG.md"
@@ -57,7 +59,9 @@
   },
   "keywords": [
     "react",
+    "react-hooks",
     "temporal",
+    "temporal-api",
     "date",
     "time",
     "calendar",
@@ -65,7 +69,7 @@
     "hooks",
     "datetime",
     "javascript",
-    "library",
+    "intl",
     "polyfill"
   ],
   "author": {
@@ -75,32 +79,41 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=22.0.0"
   },
   "devDependencies": {
     "@jest/globals": "^30.0.5",
     "@rollup/plugin-typescript": "^12.3.0",
-    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/react": "^16.3.0",
     "@types/jest": "^30.0.0",
-    "@types/react": "^17.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "^8.51.0",
     "@typescript-eslint/parser": "^8.53.1",
     "eslint": "^8.56.0",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.2.0",
     "prettier": "^3.7.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "rollup": "^4.60.1",
     "ts-jest": "^29.4.1",
     "tslib": "^2.8.1",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
   },
-  "dependencies": {
-    "@js-temporal/polyfill": "^0.5.1",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+  "peerDependenciesMeta": {
+    "@js-temporal/polyfill": {
+      "optional": true
+    },
+    "temporal-polyfill": {
+      "optional": true
+    }
+  },
+  "optionalDependencies": {
+    "@js-temporal/polyfill": "^0.5.1"
   }
 }

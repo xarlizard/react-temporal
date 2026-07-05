@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useTemporalWeek } from '../hooks/useTemporalWeek';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '../temporal';
 
 describe('useTemporalWeek', () => {
     it('returns all dates in the week', () => {

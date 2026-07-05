@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTemporalRelative } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalRelative, Temporal } from 'react-temporal';
 
 export function RelativeExample() {
   const from = Temporal.Instant.from('2025-07-21T00:00:00Z');

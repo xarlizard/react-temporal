@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useTemporalRange } from '../hooks/useTemporalRange';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '../temporal';
 
 describe('useTemporalRange', () => {
     it('returns an array of dates between start and end', () => {

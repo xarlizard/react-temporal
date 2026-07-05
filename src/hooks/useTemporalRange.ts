@@ -1,12 +1,13 @@
 import { useMemo } from 'react';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '../temporal';
+import type { TemporalPlainDate } from '../types';
 
 /**
- * Returns an array of Temporal.PlainDate between start and end.
+ * Returns an array of Temporal.PlainDate between start and end (inclusive).
  */
-export function useTemporalRange(start: Temporal.PlainDate, end: Temporal.PlainDate) {
+export function useTemporalRange(start: TemporalPlainDate, end: TemporalPlainDate) {
     return useMemo(() => {
-        const dates = [];
+        const dates: TemporalPlainDate[] = [];
         let current = start;
         while (Temporal.PlainDate.compare(current, end) <= 0) {
             dates.push(current);

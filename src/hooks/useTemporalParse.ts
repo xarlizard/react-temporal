@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '../temporal';
 
 /**
  * Parses an ISO string to Temporal.Instant.

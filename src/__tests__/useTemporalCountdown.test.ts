@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useTemporalCountdown } from '../hooks/useTemporalCountdown';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '../temporal';
 
 describe('useTemporalCountdown', () => {
     it('returns remaining seconds until target', () => {

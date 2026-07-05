@@ -1,16 +1,29 @@
 import { useMemo } from 'react';
-import { Temporal } from '@js-temporal/polyfill';
+import type {
+    TemporalInstant,
+    TemporalPlainDate,
+    TemporalPlainTime,
+    TemporalPlainDateTime,
+    TemporalZonedDateTime,
+} from '../types';
+
+type FormattableTemporal =
+    | TemporalInstant
+    | TemporalPlainDate
+    | TemporalPlainTime
+    | TemporalPlainDateTime
+    | TemporalZonedDateTime;
 
 /**
- * Formats a Temporal object using Intl.DateTimeFormat.
+ * Formats a Temporal object using Intl via Temporal's toLocaleString.
  */
-export function useTemporalFormat(temporalObj: Temporal.PlainDateTime | Temporal.Instant, options?: Intl.DateTimeFormatOptions) {
-    return useMemo(() => {
-        const zonedDateTime =
-            temporalObj instanceof Temporal.Instant
-                ? temporalObj.toZonedDateTimeISO('UTC')
-                : temporalObj;
-        const jsDate = new Date(zonedDateTime.toString());
-        return new Intl.DateTimeFormat(undefined, options).format(jsDate);
-    }, [temporalObj, options]);
+export function useTemporalFormat(
+    temporalObj: FormattableTemporal,
+    locales?: string | string[],
+    options?: Intl.DateTimeFormatOptions,
+) {
+    return useMemo(
+        () => temporalObj.toLocaleString(locales, options),
+        [temporalObj, locales, options],
+    );
 }

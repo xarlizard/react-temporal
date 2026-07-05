@@ -1,120 +1,167 @@
-# react-temporal 
+# react-temporal
 
-[![npm version](https://badge.fury.io/js/@xarlizard%2Freact-temporal.svg)](https://badge.fury.io/js/@xarlizard%2Freact-temporal)
+[![npm version](https://badge.fury.io/js/react-temporal.svg)](https://www.npmjs.com/package/react-temporal)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
-[![CI/CD](https://github.com/xarlizard/react-temporal/actions/workflows/publish.yml/badge.svg)](https://github.com/xarlizard/react-temporal/actions/workflows/publish.yml)
-[![Production Deployment](https://github.com/xarlizard/react-temporal/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/xarlizard/react-temporal/actions/workflows/deploy.yml)
+[![CI](https://github.com/xarlizard/react-temporal/actions/workflows/ci.yml/badge.svg)](https://github.com/xarlizard/react-temporal/actions/workflows/ci.yml)
 
+**react-temporal** is a React hooks library for date and time, built on the JavaScript [Temporal API](https://tc39.es/proposal-temporal/). Temporal reached **Stage 4** in 2026 and ships natively in Chrome 144+, Firefox 139+, and Edge 144+. This library uses native Temporal when available and falls back to a polyfill for Node.js, Safari, and older browsers.
 
-**react-temporal** is a comprehensive React hooks library for date and time management, powered by the new JavaScript
-[Temporal API](https://tc39.es/proposal-temporal/). It aims to be the only required library for handling dates, times,
-durations, calendars, and time zones in React projects.
+Replace `Date`, Moment.js, and most `date-fns` use cases with immutable, time-zone-aware Temporal types — wrapped in idiomatic React hooks.
+
+📖 **[Full documentation](./docs/README.md)** — getting started, API reference, polyfill guide, and TypeScript types.
 
 ---
 
-## 🚀 Install
+## Why Temporal in 2026?
+
+| | Legacy `Date` | Temporal |
+| --- | --- | --- |
+| Immutability | Mutable | Immutable value objects |
+| Time zones | Error-prone offsets | First-class `ZonedDateTime` |
+| Arithmetic | Millisecond hacks | `add`, `subtract`, `until`, `since` |
+| Parsing | Implementation-defined | Strict ISO 8601 |
+| Browser support | Everywhere | Chrome 144+, Firefox 139+, Edge 144+ |
+| Node.js | 22+ (dev) | Use a polyfill in production (native behind flag in v24) |
+
+---
+
+## Install
 
 ```bash
-npm install @xarlizard/react-temporal
+npm install react-temporal
 ```
+
+### Polyfill (recommended for SSR, Node.js, and Safari)
+
+Native Temporal is used automatically when available. For environments without it, install one polyfill:
+
+```bash
+# Smaller production polyfill (~20 KB gzip) — recommended
+npm install temporal-polyfill
+
+# Official reference implementation (~44 KB gzip)
+npm install @js-temporal/polyfill
+```
+
+For `temporal-polyfill`, add this once at your app entry point:
+
+```ts
+import 'temporal-polyfill/global';
+```
+
+`@js-temporal/polyfill` is installed automatically as an optional dependency and used as the fallback when native Temporal is unavailable.
 
 ---
 
-## 📦 Usage
+## Usage
 
-All hooks are named exports:
+All hooks are named exports. Import `Temporal` from the package or from your polyfill:
 
 ```tsx
-import { useTemporalNow, useTemporalMonth } from 'react-temporal';
+import { useTemporalNow, useTemporalZonedNow, Temporal } from 'react-temporal';
 
 function Clock() {
   const now = useTemporalNow();
-  return <div>Current time: {now.toString()}</div>;
+  const tokyo = useTemporalZonedNow('Asia/Tokyo');
+
+  return (
+    <div>
+      <p>UTC: {now.toString()}</p>
+      <p>Tokyo: {tokyo.toLocaleString()}</p>
+    </div>
+  );
 }
 ```
 
----
+### Configurable clock
 
-## 🧩 Hooks Overview
+```tsx
+import { useTemporalNow, useTemporalClock } from 'react-temporal';
 
-| Hook                   | Description                                                           |
-| ---------------------- | --------------------------------------------------------------------- |
-| `useTemporalNow`       | Returns the current `Temporal.Instant`, updating every second.        |
-| `useTemporalInterval`  | Runs a callback at a given `Temporal.Duration` interval.              |
-| `useTemporalDuration`  | Returns a `Temporal.Duration` between two instants.                   |
-| `useTemporalCalendar`  | Returns a `Temporal.Calendar` instance for a given calendar ID.       |
-| `useTemporalTimeZone`  | Returns a `Temporal.TimeZone` instance for a given time zone ID.      |
-| `useTemporalFormat`    | Formats a Temporal object using `Intl.DateTimeFormat`.                |
-| `useTemporalRange`     | Returns an array of `Temporal.PlainDate` between start and end.       |
-| `useTemporalRelative`  | Returns a human-readable relative time string between two instants.   |
-| `useTemporalCountdown` | Returns the remaining seconds until a target instant.                 |
-| `useTemporalSchedule`  | Schedules a callback to run at a specific instant.                    |
-| `useTemporalParse`     | Parses an ISO string to `Temporal.Instant`.                           |
-| `useTemporalDiff`      | Returns the difference between two instants as a `Temporal.Duration`. |
-| `useTemporalWeek`      | Returns all dates in the week of a given `Temporal.PlainDate`.        |
-| `useTemporalMonth`     | Returns all dates in the month of a given `Temporal.PlainDate`.       |
-| `useTemporalYear`      | Returns all months in the year of a given `Temporal.PlainDate`.       |
+// Update every 100 ms for a smooth timer UI
+const now = useTemporalClock({ intervalMs: 100 });
+
+// Or get zoned time with a custom interval
+const local = useTemporalNow({ timeZone: 'Europe/Madrid', intervalMs: 5000 });
+```
 
 ---
 
-### Example Hooks
+## Hooks
 
-#### `useTemporalNow`
+| Hook | Description |
+| --- | --- |
+| `useTemporalNow` | Current `Instant` or `ZonedDateTime` (with `timeZone` option), auto-updating |
+| `useTemporalClock` | Current `Instant` with configurable tick interval |
+| `useTemporalZonedNow` | Current `ZonedDateTime` for an IANA time zone |
+| `useTemporalInterval` | Run a callback on a `Duration` interval |
+| `useTemporalDuration` | `Duration` between two instants (`start.until(end)`) |
+| `useTemporalCalendar` | Validate and return a calendar ID |
+| `useTemporalTimeZone` | Validate and return a time zone ID |
+| `useTemporalFormat` | Locale-aware formatting via `toLocaleString` |
+| `useTemporalRange` | Inclusive array of `PlainDate` between two dates |
+| `useTemporalRelative` | Relative time via `Intl.RelativeTimeFormat` ("in 3 hours") |
+| `useTemporalCountdown` | Seconds remaining until a target instant |
+| `useTemporalSchedule` | `setTimeout` aligned to a target instant |
+| `useTemporalParse` | Parse an ISO string to `Instant` |
+| `useTemporalDiff` | `Duration` difference between two instants |
+| `useTemporalWeek` | All dates in the ISO week (Mon–Sun) |
+| `useTemporalMonth` | All dates in a month |
+| `useTemporalYear` | First day of each month in a year |
 
-Returns the current `Temporal.Instant`, updating every second.
-
-```tsx
-const now = useTemporalNow();
-```
-
-#### `useTemporalMonth`
-
-Returns all dates in the month of a given `Temporal.PlainDate`.
-
-```tsx
-const dates = useTemporalMonth(Temporal.PlainDate.from('2025-07-01'));
-```
-
-#### `useTemporalCountdown`
-
-Returns the remaining seconds until a target `Temporal.Instant`.
-
-```tsx
-const remaining = useTemporalCountdown(Temporal.Instant.from('2025-08-01T00:00:00Z'));
-```
-
-#### ...and many more!
-
-See [`examples/`](examples/README.md) for more usage patterns.
+See [`examples/`](examples/README.md) for copy-paste examples, or the [`docs/`](docs/README.md) folder for full documentation.
 
 ---
 
-## 🧪 Testing
+## Utilities
 
-All hooks are covered by unit tests in [`src/__tests__/`](src/__tests__). Run tests with:
+| Export | Description |
+| --- | --- |
+| `Temporal` | The Temporal namespace (native or polyfill) |
+| `getTemporal()` | Explicit resolver — native first, polyfill fallback |
+
+---
+
+## TypeScript
+
+Full type exports are included. Types are sourced from `@js-temporal/polyfill` and work with native Temporal at runtime:
+
+```ts
+import type { TemporalInstant, TemporalPlainDate, UseTemporalNowOptions } from 'react-temporal';
+```
+
+---
+
+## Testing
 
 ```bash
 npm test
 ```
 
----
-
-## 🛠️ Development
-
-- Clone the repo: `git clone https://github.com/xarlizard/react-temporal.git`
-- Install dependencies: `npm install`
-- Run tests: `npm test`
-- Build: `npm run build`
+All hooks have unit tests in [`src/__tests__/`](src/__tests__/).
 
 ---
 
-## 🤝 Contributing
+## Development
+
+```bash
+git clone https://github.com/xarlizard/react-temporal.git
+cd react-temporal
+nvm use 22   # requires Node.js 22+
+npm install
+npm test
+npm run build
+```
+
+---
+
+## Contributing
 
 Contributions are welcome! Please open issues or submit pull requests.
 
 ---
 
-## 📄 License
+## License
 
 MIT © [xarlizard](https://github.com/xarlizard)

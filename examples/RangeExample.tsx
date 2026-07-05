@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTemporalRange } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalRange, Temporal } from 'react-temporal';
 
 export function RangeExample() {
   const start = Temporal.PlainDate.from('2025-07-01');

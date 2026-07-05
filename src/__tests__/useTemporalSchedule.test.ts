@@ -1,6 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react';
 import { useTemporalSchedule } from '../hooks/useTemporalSchedule';
-import { Temporal } from '@js-temporal/polyfill';
+import { Temporal } from '../temporal';
 
 describe('useTemporalSchedule', () => {
     it('schedules a callback at a specific instant', () => {

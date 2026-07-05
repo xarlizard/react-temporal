@@ -1,8 +1,17 @@
 # Usage Examples
 
-This directory contains examples of how to use react-temporal package.
+Examples for every hook in **react-temporal**. Import `Temporal` from the package (re-exported from native or polyfill):
 
-## Clock Example
+```tsx
+import { Temporal } from 'react-temporal';
+```
+
+For apps without native Temporal (Node.js SSR, Safari), install a polyfill — see the [polyfill guide](../docs/polyfill.md).
+
+---
+
+## Clock (`useTemporalNow`)
+
 ```tsx
 import { useTemporalNow } from 'react-temporal';
 
@@ -12,16 +21,45 @@ function ClockExample() {
 }
 ```
 
-## Month Example
+## Live clock with options (`useTemporalClock` / `useTemporalNow`)
+
 ```tsx
-import { useTemporalMonth } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalClock, useTemporalNow } from 'react-temporal';
+
+function LiveClock() {
+  const fast = useTemporalClock({ intervalMs: 100 });
+  const madrid = useTemporalNow({ timeZone: 'Europe/Madrid', intervalMs: 5000 });
+
+  return (
+    <div>
+      <p>High-frequency: {fast.toString()}</p>
+      <p>Madrid: {madrid.toLocaleString()}</p>
+    </div>
+  );
+}
+```
+
+## Zoned clock (`useTemporalZonedNow`)
+
+```tsx
+import { useTemporalZonedNow } from 'react-temporal';
+
+function TokyoClock() {
+  const tokyo = useTemporalZonedNow('Asia/Tokyo');
+  return <div>Tokyo: {tokyo.toLocaleString()}</div>;
+}
+```
+
+## Month (`useTemporalMonth`)
+
+```tsx
+import { useTemporalMonth, Temporal } from 'react-temporal';
 
 function MonthExample() {
-  const dates = useTemporalMonth(Temporal.PlainDate.from('2025-07-01'));
+  const dates = useTemporalMonth(Temporal.PlainDate.from('2026-07-01'));
   return (
     <ul>
-      {dates.map(date => (
+      {dates.map((date) => (
         <li key={date.toString()}>{date.toString()}</li>
       ))}
     </ul>
@@ -29,100 +67,106 @@ function MonthExample() {
 }
 ```
 
-## Countdown Example
+## Countdown (`useTemporalCountdown`)
+
 ```tsx
-import { useTemporalCountdown } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalCountdown, Temporal } from 'react-temporal';
 
 function CountdownExample() {
-  const target = Temporal.Instant.from('2025-08-01T00:00:00Z');
+  const target = Temporal.Instant.from('2026-12-31T23:59:59Z');
   const remaining = useTemporalCountdown(target);
   return <div>Seconds remaining: {remaining}</div>;
 }
 ```
 
-## Calendar Example
+## Calendar (`useTemporalCalendar`)
+
 ```tsx
 import { useTemporalCalendar } from 'react-temporal';
 
 function CalendarExample() {
-  const calendar = useTemporalCalendar('iso8601');
-  return <div>Calendar ID: {calendar.id}</div>;
+  const calendarId = useTemporalCalendar('iso8601');
+  return <div>Calendar ID: {calendarId}</div>;
 }
 ```
 
-## Diff Example
+## Diff (`useTemporalDiff`)
+
 ```tsx
-import { useTemporalDiff } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalDiff, Temporal } from 'react-temporal';
 
 function DiffExample() {
-  const a = Temporal.Instant.from('2025-07-21T00:00:00Z');
-  const b = Temporal.Instant.from('2025-07-21T01:00:00Z');
+  const a = Temporal.Instant.from('2026-07-21T00:00:00Z');
+  const b = Temporal.Instant.from('2026-07-21T01:00:00Z');
   const diff = useTemporalDiff(a, b);
-  return <div>Difference: {diff.hours} hours</div>;
+  return <div>Difference: {diff.total('hours')} hours</div>;
 }
 ```
 
-## Duration Example
+## Duration (`useTemporalDuration`)
+
 ```tsx
-import { useTemporalDuration } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalDuration, Temporal } from 'react-temporal';
 
 function DurationExample() {
-  const start = Temporal.Instant.from('2025-07-21T00:00:00Z');
-  const end = Temporal.Instant.from('2025-07-21T00:01:00Z');
+  const start = Temporal.Instant.from('2026-07-21T00:00:00Z');
+  const end = Temporal.Instant.from('2026-07-21T00:01:00Z');
   const duration = useTemporalDuration(start, end);
-  return <div>Duration: {duration.seconds} seconds</div>;
+  return <div>Duration: {duration.total('seconds')} seconds</div>;
 }
 ```
 
-## Format Example
+## Format (`useTemporalFormat`)
+
 ```tsx
-import { useTemporalFormat } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalFormat, Temporal } from 'react-temporal';
 
 function FormatExample() {
-  const date = Temporal.PlainDateTime.from('2025-07-21T12:34:56');
-  const formatted = useTemporalFormat(date);
+  const date = Temporal.PlainDateTime.from('2026-07-21T12:34:56');
+  const formatted = useTemporalFormat(date, 'en-US', {
+    dateStyle: 'full',
+    timeStyle: 'short',
+  });
   return <div>Formatted: {formatted}</div>;
 }
 ```
 
-## Interval Example
+## Interval (`useTemporalInterval`)
+
 ```tsx
 import { useTemporalInterval } from 'react-temporal';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function IntervalExample() {
   const [count, setCount] = useState(0);
-  useTemporalInterval(() => setCount(c => c + 1), { seconds: 1 });
+  useTemporalInterval(() => setCount((c) => c + 1), { seconds: 1 });
   return <div>Interval count: {count}</div>;
 }
 ```
 
-## Parse Example
+## Parse (`useTemporalParse`)
+
 ```tsx
 import { useTemporalParse } from 'react-temporal';
 
 function ParseExample() {
-  const instant = useTemporalParse('2025-07-21T00:00:00Z');
+  const instant = useTemporalParse('2026-07-21T00:00:00Z');
   return <div>Parsed Instant: {instant.toString()}</div>;
 }
 ```
 
-## Range Example
+## Range (`useTemporalRange`)
+
 ```tsx
-import { useTemporalRange } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalRange, Temporal } from 'react-temporal';
 
 function RangeExample() {
-  const start = Temporal.PlainDate.from('2025-07-01');
-  const end = Temporal.PlainDate.from('2025-07-03');
+  const start = Temporal.PlainDate.from('2026-07-01');
+  const end = Temporal.PlainDate.from('2026-07-03');
   const dates = useTemporalRange(start, end);
   return (
     <ul>
-      {dates.map(date => (
+      {dates.map((date) => (
         <li key={date.toString()}>{date.toString()}</li>
       ))}
     </ul>
@@ -130,24 +174,24 @@ function RangeExample() {
 }
 ```
 
-## Relative Example
+## Relative (`useTemporalRelative`)
+
 ```tsx
-import { useTemporalRelative } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalRelative, Temporal } from 'react-temporal';
 
 function RelativeExample() {
-  const from = Temporal.Instant.from('2025-07-21T00:00:00Z');
-  const to = Temporal.Instant.from('2025-07-21T00:00:10Z');
-  const relative = useTemporalRelative(from, to);
+  const from = Temporal.Instant.from('2026-07-21T00:00:00Z');
+  const to = Temporal.Instant.from('2026-07-21T00:00:10Z');
+  const relative = useTemporalRelative(from, to, 'en');
   return <div>Relative: {relative}</div>;
 }
 ```
 
-## Schedule Example
+## Schedule (`useTemporalSchedule`)
+
 ```tsx
-import { useTemporalSchedule } from 'react-temporal';
-import React, { useState } from 'react';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalSchedule, Temporal } from 'react-temporal';
+import { useState } from 'react';
 
 function ScheduleExample() {
   const [triggered, setTriggered] = useState(false);
@@ -157,27 +201,28 @@ function ScheduleExample() {
 }
 ```
 
-## TimeZone Example
+## Time zone (`useTemporalTimeZone`)
+
 ```tsx
 import { useTemporalTimeZone } from 'react-temporal';
 
 function TimeZoneExample() {
   const tz = useTemporalTimeZone('UTC');
-  return <div>Time Zone: {tz.id}</div>;
+  return <div>Time Zone: {tz}</div>;
 }
 ```
 
-## Week Example
+## Week (`useTemporalWeek`)
+
 ```tsx
-import { useTemporalWeek } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalWeek, Temporal } from 'react-temporal';
 
 function WeekExample() {
-  const date = Temporal.PlainDate.from('2025-07-21');
+  const date = Temporal.PlainDate.from('2026-07-21');
   const week = useTemporalWeek(date);
   return (
     <ul>
-      {week.map(day => (
+      {week.map((day) => (
         <li key={day.toString()}>{day.toString()}</li>
       ))}
     </ul>
@@ -185,17 +230,17 @@ function WeekExample() {
 }
 ```
 
-## Year Example
+## Year (`useTemporalYear`)
+
 ```tsx
-import { useTemporalYear } from 'react-temporal';
-import { Temporal } from '@js-temporal/polyfill';
+import { useTemporalYear, Temporal } from 'react-temporal';
 
 function YearExample() {
-  const date = Temporal.PlainDate.from('2025-07-21');
+  const date = Temporal.PlainDate.from('2026-07-21');
   const months = useTemporalYear(date);
   return (
     <ul>
-      {months.map(month => (
+      {months.map((month) => (
         <li key={month.toString()}>{month.toString()}</li>
       ))}
     </ul>
@@ -205,4 +250,4 @@ function YearExample() {
 
 ---
 
-All hooks are named exports from `react-temporal`. See the source for more advanced usage and patterns.
+All hooks are named exports from `react-temporal`. See the [API reference](../docs/api-reference.md) and [main README](../README.md).
