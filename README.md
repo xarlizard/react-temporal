@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/react-temporal.svg)](https://www.npmjs.com/package/react-temporal)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
-[![CI](https://github.com/xarlizard/react-temporal/actions/workflows/ci.yml/badge.svg)](https://github.com/xarlizard/react-temporal/actions/workflows/ci.yml)
+[![CI](https://github.com/charlite/react-temporal/actions/workflows/ci.yml/badge.svg)](https://github.com/charlite/react-temporal/actions/workflows/ci.yml)
 
 **react-temporal** is a React hooks library for date and time, built on the JavaScript [Temporal API](https://tc39.es/proposal-temporal/). Temporal reached **Stage 4** in 2026 and ships natively in Chrome 144+, Firefox 139+, and Edge 144+. This library uses native Temporal when available and falls back to a polyfill for Node.js, Safari, and older browsers.
 
@@ -146,7 +146,7 @@ All hooks have unit tests in [`src/__tests__/`](src/__tests__/).
 ## Development
 
 ```bash
-git clone https://github.com/xarlizard/react-temporal.git
+git clone https://github.com/charlite/react-temporal.git
 cd react-temporal
 nvm use 22   # requires Node.js 22+
 npm install
@@ -164,4 +164,4 @@ Contributions are welcome! Please open issues or submit pull requests.
 
 ## License
 
-MIT © [xarlizard](https://github.com/xarlizard)
+MIT © [charlite](https://github.com/charlite)

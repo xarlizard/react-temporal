@@ -48,5 +48,5 @@ function Dashboard() {
 
 ## Support
 
-- [GitHub Issues](https://github.com/xarlizard/react-temporal/issues)
+- [GitHub Issues](https://github.com/charlite/react-temporal/issues)
 - [Changelog](../CHANGELOG.md)

@@ -48,14 +48,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xarlizard/react-temporal.git"
+    "url": "git+https://github.com/charlite/react-temporal.git"
   },
   "publishConfig": {
     "access": "public"
   },
-  "homepage": "https://github.com/xarlizard/react-temporal#readme",
+  "homepage": "https://github.com/charlite/react-temporal#readme",
   "bugs": {
-    "url": "https://github.com/xarlizard/react-temporal/issues"
+    "url": "https://github.com/charlite/react-temporal/issues"
   },
   "keywords": [
     "react",
@@ -73,9 +73,9 @@
     "polyfill"
   ],
   "author": {
-    "name": "xarlizard",
-    "email": "38315638+xarlizard@users.noreply.github.com",
-    "url": "https://github.com/xarlizard"
+    "name": "charlite",
+    "email": "38315638+charlite@users.noreply.github.com",
+    "url": "https://github.com/charlite"
   },
   "license": "MIT",
   "engines": {

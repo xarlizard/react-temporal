@@ -80,7 +80,7 @@ Documentation improvements are always welcome:
 1. **Fork and Clone**
 
    ```bash
-   git clone https://github.com/xarlizard/react-temporal.git
+   git clone https://github.com/charlite/react-temporal.git
    cd react-temporal
    ```
 
